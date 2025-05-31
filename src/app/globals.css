@@ -1,0 +1,13 @@
+body{
+  margin : 0;
+  font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.container{
+  margin-left: 50px;
+}
+
+h1{
+  font-size: 3.4rem;
+  margin-bottom : 0;
+  margin-left: 50px;
+}
