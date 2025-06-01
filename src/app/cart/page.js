@@ -10,14 +10,14 @@ const CartPage = () => {
 
   const increaseQuantity = (id) => {
     const updated = cartItems.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
     updateCart(updated);
   };
 
   const decreaseQuantity = (id) => {
     const updated = cartItems.map((item) =>
-      item.id === id && item.quantity > 1
+      item._id === id && item.quantity > 1
         ? { ...item, quantity: item.quantity - 1 }
         : item
     );
@@ -25,7 +25,7 @@ const CartPage = () => {
   };
 
   const removeItem = (id) => {
-    const updated = cartItems.filter((item) => item.id !== id);
+    const updated = cartItems.filter((item) => item._id !== id);
     updateCart(updated);
   };
 
@@ -57,20 +57,20 @@ const CartPage = () => {
         <div className="cart">
           <div className="cart-container">
             {cartItems.map((item) => (
-              <div className="cart-card" key={item.id}>
+              <div className="cart-card" key={item._id}>
                 <div className="cart-details">
                   <h3>{item.name}</h3>
                   <p>Category: {item.category}</p>
                   <p>Price: ₹{item.price}</p>
                   <div className="quantity-control">
-                    <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                    <button onClick={() => decreaseQuantity(item._id)}>-</button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => increaseQuantity(item.id)}>+</button>
+                    <button onClick={() => increaseQuantity(item._id)}>+</button>
                   </div>
                 </div>
                 <button
                   className="remove-btn"
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(item._id)}
                 >
                   Remove
                 </button>
