@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import './globals.css'
-import TabsCard from '@/components/TabsCard/TabsCard';
 
 export default function Home() {
   return (

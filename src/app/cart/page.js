@@ -1,6 +1,5 @@
-// CartPage.js
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useCart } from "../../../src/CartContext"; // adjust path
 import "./CartPage.css";
 
@@ -10,25 +9,24 @@ const CartPage = () => {
   const platformFee = 20;
 
   const increaseQuantity = (id) => {
-    updateCart(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
+    const updated = cartItems.map((item) =>
+      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
+    updateCart(updated);
   };
 
   const decreaseQuantity = (id) => {
-    updateCart(
-      cartItems.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+    const updated = cartItems.map((item) =>
+      item.id === id && item.quantity > 1
+        ? { ...item, quantity: item.quantity - 1 }
+        : item
     );
+    updateCart(updated);
   };
 
   const removeItem = (id) => {
-    updateCart(cartItems.filter((item) => item.id !== id));
+    const updated = cartItems.filter((item) => item.id !== id);
+    updateCart(updated);
   };
 
   const subtotal = cartItems.reduce(
@@ -39,13 +37,15 @@ const CartPage = () => {
   const uniqueCategories = [...new Set(cartItems.map((item) => item.category))];
   const isBundleDiscount = uniqueCategories.length >= 2;
   const discount = isBundleDiscount ? subtotal * 0.1 : 0;
-
   const total = subtotal - discount + donation + platformFee;
 
-  const handleCheckout = () => {
-    alert("Order placed successfully!");
+  const handleCheckout = async () => {
+    alert("⏳ Processing your order...");
+    await new Promise((res) => setTimeout(res, 1500));
+    alert("✅ Order placed successfully!");
     updateCart([]);
     setDonation(0);
+    localStorage.removeItem("cartItems");
   };
 
   return (
@@ -68,7 +68,10 @@ const CartPage = () => {
                     <button onClick={() => increaseQuantity(item.id)}>+</button>
                   </div>
                 </div>
-                <button className="remove-btn" onClick={() => removeItem(item.id)}>
+                <button
+                  className="remove-btn"
+                  onClick={() => removeItem(item.id)}
+                >
                   Remove
                 </button>
               </div>
@@ -93,9 +96,7 @@ const CartPage = () => {
               <p className="discount">Bundle Discount: -₹{discount.toFixed(2)}</p>
             )}
 
-            {donation > 0 && (
-              <p>Social Work Donation: ₹{donation.toFixed(2)}</p>
-            )}
+            {donation > 0 && <p>Social Work Donation: ₹{donation.toFixed(2)}</p>}
 
             <p>Platform Fee: ₹{platformFee.toFixed(2)}</p>
 

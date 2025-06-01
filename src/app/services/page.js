@@ -1,98 +1,84 @@
+// TabsCard.js
 "use client";
+import React, { useState } from "react";
+import { useCart } from "../../../src/CartContext"
+import "./services.css";
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import ServiceCard from '../../components/ServiceCard';
-import Link from 'next/link';
-import TabsCard from '@/components/TabsCard/TabsCard';
+const ServicesPage = () => {
+  const tabs = [
+    "Visa Consultation",
+    "Document Support",
+    "Travel Insurance",
+    "Priority Processing",
+  ];
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const { addToCart } = useCart();
 
-export default function Services() {
+  const renderContent = () => {
+    const products = visaProducts[activeTab] || [];
 
-
-
-  // const [services, setServices] = useState([]);
-  // const [token, setToken] = useState(null);
-  // const [userId, setUserId] = useState(null);
-  // const [dragId, setDragId] = useState(null);
-  // const [dragOverId, setDragOverId] = useState(null);
-
-  // // useEffect(() => {
-  // //   const storedToken = localStorage.getItem('token');
-  // //   const storedUserId = localStorage.getItem('userId');
-  // //   if (storedToken && storedUserId) {
-  // //     setToken(storedToken);
-  // //     setUserId(storedUserId);
-  // //   }
-  // // }, []);
-
-  // // useEffect(() => {
-  // //   if (token) {
-  // //     axios.get('http://localhost:5000/api/services', {
-  // //       headers: { Authorization: `Bearer ${token}` },
-  // //     })
-  // //       .then(res => setServices(res.data))
-  // //       .catch(err => console.error(err));
-  // //   }
-  // // }, [token]);
-
-  // const handleDragStart = (e, id) => {
-  //   setDragId(id);
-  //   e.dataTransfer.effectAllowed = 'move';
-  // };
-
-  // const handleDragOver = (e, id) => {
-  //   e.preventDefault();
-  //   e.dataTransfer.dropEffect = 'move';
-  //   setDragOverId(id);
-  // };
-
-  // const handleDragLeave = () => {
-  //   setDragOverId(null);
-  // };
-
-  // const handleDrop = (e, dropId) => {
-  //   e.preventDefault();
-  //   if (dragId === dropId) return;
-
-  //   const draggedIndex = services.findIndex(s => s._id === dragId);
-  //   const dropIndex = services.findIndex(s => s._id === dropId);
-  //   const newServices = [...services];
-  //   const [draggedItem] = newServices.splice(draggedIndex, 1);
-  //   newServices.splice(dropIndex, 0, draggedItem);
-
-  //   setServices(newServices);
-  //   setDragId(null);
-  //   setDragOverId(null);
-  // };
-
-  // // if (!token) {
-  // //   return (
-  // //     <div className="container">
-  // //       <h1>Services</h1>
-  // //       <p>Please <Link href="/login">log in</Link> to view services.</p>
-  // //     </div>
-  // //   );
-  // // }
+    return (
+      <div className="product-grid">
+        {products.map((product) => (
+          <div className="product-card" key={product.id}>
+            <h3>{product.description}</h3>
+            <p className="price">{product.price}</p>
+            <p className="duration">Delivery within 2–3 days</p>
+            <button
+              className="add-to-cart-btn"
+              onClick={() => {
+                addToCart(product, activeTab);
+                alert(`${product.description} added to cart`);
+              }}
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className="container">
-      <h1>Visa Services</h1>
-      <div className="service-grid">
-        {/* {services.map(service => (
-          <ServiceCard
-            key={service._id}
-            service={service}
-            userId={userId}
-            token={token}
-            isDragOver={dragOverId === service._id}
-            onDragStart={handleDragStart}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onDrop={handleDrop}
-          />
-        ))} */}
-        <TabsCard />
+  <>
+    <h1>Visa Services</h1>
+    <div className="card">
+      <div className="tab-header">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            className={`tab-button ${activeTab === tab ? "active" : ""}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
+      <div className="tab-content">{renderContent()}</div>
     </div>
+    </>
   );
-}
+};
+
+// Sample products (same as yours)
+const visaProducts = {
+  "Visa Consultation": [
+    { id: 1, price: 99, description: "Tourist Visa Consultation" },
+    { id: 2, price: 149, description: "Business Visa Consultation" },
+    { id: 3, price: 199, description: "Student Visa Consultation" },
+  ],
+  "Document Support": [
+    { id: 4, price: 59, description: "Form Filling Assistance" },
+    { id: 5, price: 89, description: "Document Verification" },
+  ],
+  "Travel Insurance": [
+    { id: 6, price: 120, description: "Basic Travel Insurance" },
+    { id: 7, price: 180, description: "Comprehensive Travel Insurance" },
+  ],
+  "Priority Processing": [
+    { id: 8, price: 70, description: "24-Hour Processing" },
+    { id: 9, price: 90, description: "Same-Day Processing" },
+  ],
+};
+
+export default ServicesPage;

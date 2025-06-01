@@ -1,11 +1,24 @@
 // app/context/CartContext.js
 "use client";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem("cartItems");
+    if (stored) {
+      setCartItems(JSON.parse(stored));
+    }
+  }, []);
+
+  // Sync to localStorage on change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product, category) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
