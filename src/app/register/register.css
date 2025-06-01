@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(to right,#007fff, #0e58a7);
+    background: linear-gradient(to right, #1e90ff, #007fff);
     padding: 16px;
 }
 
@@ -19,6 +19,9 @@
 
 /* Left side */
 .register-left {
+    align-items: center;
+    justify-content: center;
+    display: flex;
     width: 50%;
     background: linear-gradient(to bottom, #007fff, #005bbb);
     color: white;
@@ -106,14 +109,9 @@
     font-size: 14px;
 }
 
-.checkbox{
-  display: flex;
-  flex-direction: row;
-}
-
 .checkbox-label {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     font-size: 14px;
     margin-bottom: 16px;
 }
