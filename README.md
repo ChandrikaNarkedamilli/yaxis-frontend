@@ -8,6 +8,7 @@ TECH STACK USED :
 -> Backend : Node js, Expressjs
 -> Database : Mongo db atlas
 -> authentication : jwt token 
+-> deployment : frontend - vercel , backend - render
 
 SET UP instructions :
 ### Backend (Express + MongoDB)
