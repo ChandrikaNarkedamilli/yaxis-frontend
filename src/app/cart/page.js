@@ -12,7 +12,7 @@ const CartPage = () => {
 
   if (!user) {
     return (
-      <div style={{'margin-left': '10px'}}>
+      <div style={{marginLeft: '10px'}}>
         <h3>Please login to access your cart.</h3>
         <Link href="/login"><button className="save-btn">Login</button></Link>
       </div>
