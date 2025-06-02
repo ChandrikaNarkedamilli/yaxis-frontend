@@ -8,8 +8,10 @@ import axios from "axios";
 import Link from "next/link";
 
 const CartPage = () => {
-  const { user } = useAuth();
-
+  const { user,loading } = useAuth();
+  if (loading) {
+    return <div>Loading...</div>;  
+  }
   if (!user) {
     return (
       <div style={{marginLeft: '10px'}}>
@@ -98,7 +100,10 @@ const CartPage = () => {
 
 
   return (
+    <>
+    <h1 className="cart-title">Your Cart</h1>
     <div className="cart-page">
+      
       {cartItems.length === 0 ? (
         <div className="empty-cart-container">
           <h2>Your cart is empty</h2>
@@ -160,6 +165,7 @@ const CartPage = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

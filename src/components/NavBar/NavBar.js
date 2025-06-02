@@ -20,11 +20,13 @@ const Navbar = () => {
         <Link href="/"><BiLogoVisa fontSize="80px"/></Link>
       </div>
       <div className="navbar-links">
-        <Link href="/">HOME</Link>
+        {/* <Link href="/">HOME</Link> */}
         <Link href="/services">SERVICES</Link>
 
         {!user && <Link href="/login">LOGIN</Link>}
         {!user && <Link href="/register">REGISTER</Link>}
+        {!user && <Link href="/cart">CART</Link>}
+        
 
         {user && <Link href="/profile">PROFILE</Link>}
         {user && <Link href="/cart">CART</Link>}

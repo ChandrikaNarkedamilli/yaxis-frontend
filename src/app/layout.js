@@ -18,7 +18,6 @@ export default function RootLayout({ children }) {
             <CartProvider>{children}</CartProvider>
             <ChatWidget />
           </AuthProvider>
-        <ChatWidget />
       </body>
     </html>
   );
