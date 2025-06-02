@@ -46,7 +46,7 @@ Assumptions Made
 - After login success, he can view profile where user details and past orders will be there and cart items which are already present.
 - User must be logged in to add items to the cart or proceed to checkout.
 - Platform fee is fixed at ₹20 per order.
-- Social work donation is added to cart total when clicked on button
+- Social work donation is added to cart total when clicked on button and included in cart total
 - A 10% discount is applied automatically if items from two or more categories are added.
 - Cart gets cleared only after successful checkout.
 - Orders are saved and retrievable from the profile page.
