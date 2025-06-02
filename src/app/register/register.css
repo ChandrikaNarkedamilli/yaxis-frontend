@@ -2,15 +2,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(to right, #1e90ff, #007fff);
-    padding: 16px;
+    min-height: 88vh;
+    /* background: linear-gradient(to right, #1e90ff, #007fff); */
+    /* padding: 16px; */
+    /* margin-top: -10px; */
 }
 
 .register-container {
     display: flex;
     width: 100%;
-    max-width: 900px;
+    max-width: 660px;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -23,9 +24,9 @@
     justify-content: center;
     display: flex;
     width: 50%;
-    background: linear-gradient(to bottom, #007fff, #005bbb);
+    background: linear-gradient(to bottom, #1769bb, #005bbb);
     color: white;
-    padding: 32px;
+    padding: 20px 32px;
     position: relative;
     overflow: hidden;
 }
@@ -85,7 +86,7 @@
 /* Right side */
 .register-right {
     width: 50%;
-    padding: 32px;
+    padding: 20px 32px;
     display: flex;
     flex-direction: column;
 }
@@ -130,14 +131,14 @@
 }
 
 .primary-btn {
-    background-color: #007fff;
+    background-color: #0e61b4;
     color: white;
 }
 
 .secondary-btn {
     background-color: white;
-    color: #007fff;
-    border: 1px solid #007fff;
+    color: #0e61b4;
+    border: 1px solid #0e61b4;
 }
 
 .divider {

@@ -1,55 +1,91 @@
-
 .chat-widget {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
 }
 
-.chat-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  background-color: #0e58a7;
+.chat-toggle {
+  background: #0078d4;
   color: #fff;
-  font-size: 16px;
   border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 2rem;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .chat-box {
-  width: 300px;
-  height: 400px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  width: 320px;
+  max-height: 420px;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   display: flex;
   flex-direction: column;
+  margin-bottom: 12px;
+  overflow: hidden;
 }
 
 .chat-messages {
   flex: 1;
-  padding: 15px;
+  padding: 16px;
   overflow-y: auto;
+  background: #f6f8fa;
 }
 
-.chat-messages p {
-  margin: 5px 0;
+.chat-msg {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  max-width: 80%;
+  word-break: break-word;
+  font-size: 1rem;
 }
 
-.chat-messages .user-message {
-  text-align: right;
-  color: #007bff;
+.chat-msg.user {
+  background: #e6f0ff;
+  align-self: flex-end;
+  color: #222;
+}
+
+.chat-msg.bot {
+  background: #f0f0f0;
+  align-self: flex-start;
+  color: #333;
 }
 
 .chat-input {
-  border-top: 1px solid #ddd;
-  padding: 10px;
   display: flex;
+  border-top: 1px solid #eee;
+  padding: 10px;
+  background: #fff;
 }
 
 .chat-input input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 8px;
+  background: #0078d4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-input button:disabled {
+  background: #b3d3f7;
+  cursor: not-allowed;
 }

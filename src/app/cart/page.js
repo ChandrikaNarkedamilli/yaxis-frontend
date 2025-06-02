@@ -1,12 +1,27 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "../../../src/CartContext"; // adjust path
 import "./CartPage.css";
+import { API_URL } from "@/components/api";
+import { useAuth } from "../../../src/AuthContext";
+import axios from "axios";
+import Link from "next/link";
 
 const CartPage = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <div style={{'margin-left': '10px'}}>
+        <h3>Please login to access your cart.</h3>
+        <Link href="/login"><button className="save-btn">Login</button></Link>
+      </div>
+    );
+  }
   const { cartItems, updateCart } = useCart();
   const [donation, setDonation] = useState(0);
   const platformFee = 20;
+
 
   const increaseQuantity = (id) => {
     const updated = cartItems.map((item) =>
@@ -24,9 +39,18 @@ const CartPage = () => {
     updateCart(updated);
   };
 
-  const removeItem = (id) => {
-    const updated = cartItems.filter((item) => item._id !== id);
-    updateCart(updated);
+  const removeItem = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_URL}/api/cart/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Then update local state by removing item:
+      const updated = cartItems.filter(item => item._id !== id);
+      updateCart(updated);
+    } catch (err) {
+      console.error("Remove item error:", err);
+    }
   };
 
   const subtotal = cartItems.reduce(
@@ -40,19 +64,46 @@ const CartPage = () => {
   const total = subtotal - discount + donation + platformFee;
 
   const handleCheckout = async () => {
-    alert("⏳ Processing your order...");
-    await new Promise((res) => setTimeout(res, 1500));
-    alert("✅ Order placed successfully!");
-    updateCart([]);
-    setDonation(0);
-    localStorage.removeItem("cartItems");
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(`${API_URL}/api/cart/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          donation,
+          platformFee,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("✅ Order placed successfully!");
+        updateCart([]);
+        setDonation(0);
+        localStorage.removeItem("cartItems");
+        localStorage.setItem("orderUpdated", Date.now());
+      } else {
+        alert(data.message || "❌ Failed to place order");
+      }
+    } catch (err) {
+      console.error("Checkout failed:", err);
+      alert("❌ Checkout failed due to an error");
+    }
   };
+
 
   return (
     <div className="cart-page">
-      <h1>Your Cart</h1>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="empty-cart-container">
+          <h2>Your cart is empty</h2>
+          <p>Looks like you have not added anything to your cart. Go ahead & explore top categories.</p>
+        </div>
       ) : (
         <div className="cart">
           <div className="cart-container">

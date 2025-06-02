@@ -3,12 +3,10 @@
 import React,{useState} from 'react';
 import './register.css';
 import { API_URL } from '@/components/api';
-import V from '../../assets/Combined Shape.png';
-import I from '../../assets/path11.png'
-import S from '../../assets/path13.png';
-import A from '../../assets/polygon9.png';
+import Link from 'next/link';
 
 const RegisterPage = () => {
+  const [isLogin, setIsLogin] = useState(false); 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,7 +33,7 @@ const RegisterPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name,
+          username: formData.name,
           email: formData.email,
           password: formData.password,
         }),
@@ -43,15 +41,18 @@ const RegisterPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Registration successful!");
-      } else {
-        alert(data.message || "Registration failed");
+        setFormData({ name: "", email: "", password: "",confirmPassword:"",agreed : false, });
+        setIsLogin(true);
+        alert("Registration successful! Please login.");
+        window.location.href = "/login"; 
+        } else {
+          alert(data.message || "Registration failed");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong");
       }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong");
-    }
-  };
+    };
 
   return (
     <div className="register-wrapper">
@@ -59,10 +60,6 @@ const RegisterPage = () => {
         <div className="register-left">
           <div className="circle circle1"></div>
           <div className="circle circle2"></div>
-          <img src={V} alt="V" className="logo" />
-          <img src={I} alt="I" className="logo" />
-          <img src={S} alt="S" className="logo" />
-          <img src={A} alt="A" className="logo" />
         </div>
         <div className="register-right">
           <h2>Sign Up</h2>
@@ -70,28 +67,28 @@ const RegisterPage = () => {
             type="text"
             placeholder="Full Name"
             name="name"
-            value={formData.name}
+            value={formData.name || ""}
             onChange={handleChange}
           />
           <input
             type="email"
             placeholder="Email Address"
             name="email"
-            value={formData.email}
+            value={formData.email || ""}
             onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
-            value={formData.password}
+            value={formData.password || ""}
             onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Confirm Password"
             name="confirmPassword"
-            value={formData.confirmPassword}
+            value={formData.confirmPassword || ""}
             onChange={handleChange}
           />
           <label className="checkbox-label">
@@ -109,7 +106,7 @@ const RegisterPage = () => {
           <div className="divider">Or</div>
           <button className="secondary-btn">Sign up with other</button>
           <p className="signin-text">
-            Already have an account? <a href="#">Sign In</a>
+            Already have an account? <Link href="/login">Sign In</Link>
           </p>
         </div>
       </div>

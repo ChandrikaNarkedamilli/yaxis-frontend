@@ -1,28 +1,38 @@
 "use client";
 
+import './NavBar.css';
 import Link from 'next/link';
+import { useAuth } from "../../AuthContext";
 import { useRouter } from 'next/navigation';
-import "./NavBar.css" 
 import { BiLogoVisa } from "react-icons/bi";
 
+const Navbar = () => {
+  const { user, logout } = useAuth();
+  const router = useRouter();
 
-const NavBar = () => {
+  const handleLogout = () => {
+    logout();
+    router.push('/login'); // redirect to login after logout
+  };
   return (
     <nav className="navbar">
       <div className="navbar-brand">
         <Link href="/"><BiLogoVisa fontSize="80px"/></Link>
       </div>
       <div className="navbar-links">
-        <Link href="/">Home</Link>
-        <Link href="/services">Services</Link>
-          <Link href="/cart">Cart</Link>
-          <Link href="/profile">Profile</Link>
-          {/* <button onClick={handleLogout} className="btn btn-danger">Logout</button> */}
-          <Link href="/login">Login</Link>
-          <Link href="/register">Register</Link>
+        <Link href="/">HOME</Link>
+        <Link href="/services">SERVICES</Link>
+
+        {!user && <Link href="/login">LOGIN</Link>}
+        {!user && <Link href="/register">REGISTER</Link>}
+
+        {user && <Link href="/profile">PROFILE</Link>}
+        {user && <Link href="/cart">CART</Link>}
+
+        {user && <button className='logout-btn' onClick={handleLogout}>LOGOUT</button>}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default NavBar
+export default Navbar;

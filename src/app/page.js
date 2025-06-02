@@ -2,12 +2,15 @@
 import Link from 'next/link';
 import './globals.css'
 import { useEffect, useState } from 'react';
+import HomeSection from '@/components/HomeSection/HomeSection';
 
 export default function Home() {
  const [user, setUser] = useState(null);
 
     useEffect(() => {
+        // localStorage.clear();
         const token = localStorage.getItem("token");
+
         if (token) {
             try {
                 const payload = JSON.parse(atob(token.split('.')[1]));
@@ -23,10 +26,8 @@ export default function Home() {
   return (
     <>
     <div className="container">
-      <h1>Welcome to Visa App</h1>
-      <p>Explore our visa services and manage your applications.</p>
-    </div>
-    
+      <HomeSection />
+    </div>    
     </>
     
   );

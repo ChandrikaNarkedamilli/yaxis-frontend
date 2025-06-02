@@ -3,15 +3,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(to right, #1e90ff, #007fff);
-    padding: 16px;
+    min-height: 90vh;
+    /* background: linear-gradient(to right, #0e58a7, #007fff); */
+    /* background-color: #0e58a7; */
+    /* padding: 16px; */
+    margin-top: -20px;
 }
 
 .login-container {
     display: flex;
     width: 100%;
-    max-width: 900px;
+    max-width: 700px;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -24,7 +26,7 @@
     justify-content: center;
     display: flex;
     width: 50%;
-    background: linear-gradient(to bottom, #007fff, #005bbb);
+    background: linear-gradient(to bottom, #1769bb, #005bbb);
     color: white;
     padding: 32px;
     position: relative;
@@ -133,14 +135,14 @@
 }
 
 .primary-btn {
-    background-color: #007fff;
+    background-color: #0d569f;
     color: white;
 }
 
 .secondary-btn {
     background-color: white;
-    color: #007fff;
-    border: 1px solid #007fff;
+    color: #0f5aa5;
+    border: 1px solid #0f5aa5;
 }
 
 .divider {

@@ -1,13 +1,14 @@
 body{
   margin : 0;
-  font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(255, 252, 249);
 }
-.container{
+/* .container{
   margin-left: 50px;
-}
+} */
 
-h1{
+/* h1{
   font-size: 3.4rem;
   margin-bottom : 0;
   margin-left: 50px;
-}
+} */

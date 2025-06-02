@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
       if (!token) return;
 
       await axios.post(
-        "http://localhost:5000/api/cart/update",
+        `${API_URL}/api/cart/update`,
         { items: updatedCart },
         {
           headers: {
@@ -65,7 +65,7 @@ export const CartProvider = ({ children }) => {
       const res = await axios.post(
         `${API_URL}/api/cart`,
         {
-          name: product.description,
+          name: product.name,
           price: product.price,
           category,
           description: product.description,

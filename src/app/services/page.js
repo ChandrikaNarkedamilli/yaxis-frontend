@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useCart } from "../../../src/CartContext";
 import axios from "axios";
-
+import { useAuth } from "../../../src/AuthContext";
 import "./services.css";
 import { API_URL } from "@/components/api";
 
@@ -10,6 +10,7 @@ const ServicesPage = () => {
   const [products, setProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("Visa Consultation");
   const { addToCart } = useCart();
+  const { isLoggedIn } = useAuth();
 
   const tabs = ["Visa Consultation", "Document Support", "Travel Insurance", "Priority Processing"];
 
@@ -27,11 +28,16 @@ const ServicesPage = () => {
         {filteredProducts.map((product) => (
           <div className="product-card" key={product._id}>
             <h3>{product.name}</h3>
-            <p className="price">{product.price}</p>
+            <p className="price">₹{product.price}</p>
             <p className="duration">Delivery within 2–3 days</p>
             <button
               className="add-to-cart-btn"
               onClick={() => {
+                if (!isLoggedIn) {
+                  alert("❌ Please login to use our services.");
+                  return;
+                }
+
                 addToCart(product, activeTab);
                 alert(`${product.name} added to cart`);
               }}
@@ -46,7 +52,6 @@ const ServicesPage = () => {
 
   return (
     <>
-      <h1>Visa Services</h1>
       <div className="card">
         <div className="tab-header">
           {tabs.map((tab) => (
