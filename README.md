@@ -55,6 +55,10 @@ Deployment urls:
 frontend --> https://visa-app-rosy.vercel.app
 backend --> https://yaxis-backend.onrender.com
 
+existing user login credentials :
+email : john@example.com
+password : john123
+
 API testing with postman
 images attached within the mail
 
