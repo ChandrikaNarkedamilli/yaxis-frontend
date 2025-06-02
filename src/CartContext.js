@@ -3,14 +3,17 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "./components/api";
+import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { user, isLoggedIn } = useAuth(); 
   const [cartItems, setCartItems] = useState([]);
 
   const fetchCart = async () => {
   try {
+    if (!isLoggedIn || !user) return;
     const token = localStorage.getItem("token");
     if (!token) return;
 
@@ -19,7 +22,7 @@ export const CartProvider = ({ children }) => {
     });
 
     if (res.status === 200) {
-      setCartItems(res.data.items);
+      setCartItems(res.data.items || []);
     }
   } catch (err) {
     if (err.response?.status === 401) {
@@ -32,8 +35,10 @@ export const CartProvider = ({ children }) => {
 };
 
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (user) {
+      fetchCart();
+    }
+  }, [user,isLoggedIn]);
 
   const syncCartToBackend = async (updatedCart) => {
     try {

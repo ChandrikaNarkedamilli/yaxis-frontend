@@ -19,7 +19,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
+    setIsLoggedIn(true);
     localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", token);
   };
 
   const logout = () => {
@@ -30,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn, logout }}>
+    <AuthContext.Provider value={{user, setUser, isLoggedIn, setIsLoggedIn,login, logout }}>
       {children}
     </AuthContext.Provider>
   );
