@@ -20,7 +20,7 @@ const Navbar = () => {
         <Link href="/"><BiLogoVisa fontSize="80px"/></Link>
       </div>
       <div className="navbar-links">
-        {/* <Link href="/">HOME</Link> */}
+        <Link href="/">HOME</Link>
         <Link href="/services">SERVICES</Link>
 
         {!user && <Link href="/login">LOGIN</Link>}
